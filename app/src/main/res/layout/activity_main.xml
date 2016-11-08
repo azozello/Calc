@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="contextmenu.develop.startandroid.ru.mycalculator.MainActivity">
+
+    <Button
+        android:text="Calculator"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:id="@+id/calculatorButton" />
+    <Button
+        android:text="Matrix"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_below="@+id/calculatorButton"
+        android:layout_alignLeft="@+id/calculatorButton"
+        android:layout_alignStart="@+id/calculatorButton"
+        android:layout_marginTop="35dp"
+        android:id="@+id/matrixButton" />
+    <Button
+        android:text="Results"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_below="@+id/matrixButton"
+        android:layout_alignRight="@+id/matrixButton"
+        android:layout_alignEnd="@+id/matrixButton"
+        android:layout_marginTop="35dp"
+        android:id="@+id/resultButton" />
+    <Button
+        android:text="Setting"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_below="@+id/resultButton"
+        android:layout_alignRight="@+id/resultButton"
+        android:layout_alignEnd="@+id/resultButton"
+        android:layout_marginTop="35dp"
+        android:id="@+id/settingsButton" />
+</RelativeLayout>

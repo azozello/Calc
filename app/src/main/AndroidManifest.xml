@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="contextmenu.develop.startandroid.ru.mycalculator">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Calculator" />
+        <activity android:name=".Matrix" />
+        <activity android:name=".Settings" />
+        <activity android:name=".SetColor" />
+        <activity android:name=".SetSize" />
+        <activity android:name=".SaveRecord" />
+        <activity android:name=".ViewRecords"></activity>
+    </application>
+
+</manifest>

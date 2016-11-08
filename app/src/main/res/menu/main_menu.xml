@@ -13,5 +13,10 @@
         android:orderInCategory="100"
         android:title="Save"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_load"
+        android:orderInCategory="100"
+        android:title="Load"
+        app:showAsAction="never"/>
 
 </menu>

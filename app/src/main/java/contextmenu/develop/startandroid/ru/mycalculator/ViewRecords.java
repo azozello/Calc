@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,7 +18,8 @@ import java.util.ArrayList;
 
 public class ViewRecords extends AppCompatActivity implements View.OnClickListener{
 
-    final int EDIT_REQUEST = 2;
+    final int EDIT_REQUEST = 3;
+    private boolean forResult;
 
     Button find;
     TextView listItem;
@@ -41,6 +41,9 @@ public class ViewRecords extends AppCompatActivity implements View.OnClickListen
         listItem = (TextView) findViewById(R.id.textItem);
         recordsList = (ListView) findViewById(R.id.recordsList);
 
+        Intent mainIntent = getIntent();
+        forResult = mainIntent.getBooleanExtra("forResult",false);
+
         find.setTextColor(MainActivity.textColor);
         finder.setTextColor(MainActivity.textColor);
         find.setOnClickListener(this);
@@ -61,9 +64,30 @@ public class ViewRecords extends AppCompatActivity implements View.OnClickListen
         recordsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                intent.putExtra("position",position);
-                intent.putExtra("todo",1);
-                startActivityForResult(intent,EDIT_REQUEST);
+                if (forResult){
+                    try {
+                        if (!Calculator.choose) {
+                            Calculator.screenFirstNumber = new StringBuilder();
+                            Calculator.screenFirstNumber.append(MainActivity.allRecords.get(position).getResult());
+                            Calculator.choose = true;
+                            Calculator.firstNumber = Double.parseDouble(MainActivity.allRecords.get(position).getResult());
+                            Calculator.first.setText(MainActivity.allRecords.get(position).getResult());
+                            finish();
+                        }else {
+                            Calculator.screenSecondNumber = new StringBuilder();
+                            Calculator.screenSecondNumber.append(MainActivity.allRecords.get(position).getResult());
+                            Calculator.secondNumber = Double.parseDouble(MainActivity.allRecords.get(position).getResult());
+                            Calculator.second.setText(MainActivity.allRecords.get(position).getResult());
+                            finish();
+                        }
+                    }catch (Exception e){
+
+                    }
+                }else {
+                    intent.putExtra("position", position);
+                    intent.putExtra("todo", 1);
+                    startActivityForResult(intent, EDIT_REQUEST);
+                }
             }
         });
     }
@@ -121,15 +145,16 @@ public class ViewRecords extends AppCompatActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ArrayAdapter<String> finishAdapter;
-        if (resultCode==RESULT_OK){
             try{
-                for (int i=0;i<MainActivity.allRecords.size();i++){
-                    if (i<TAGs.size()) {
-                        TAGs.set(i, MainActivity.allRecords.get(i).getTAG());
-                    }else {
-                        TAGs.add(MainActivity.allRecords.get(i).getTAG());
+                if (MainActivity.allRecords.size()>0) {
+                    for (int i = 0; i < MainActivity.allRecords.size(); i++) {
+                        if (i < TAGs.size()) {
+                            TAGs.set(i, MainActivity.allRecords.get(i).getTAG());
+                        } else {
+                            TAGs.add(MainActivity.allRecords.get(i).getTAG());
+                        }
                     }
-                }
+                }else TAGs = new ArrayList<String>();
             }catch (Exception e){
                 Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
             }
@@ -144,6 +169,5 @@ public class ViewRecords extends AppCompatActivity implements View.OnClickListen
                 }
             };
             recordsList.setAdapter(finishAdapter);
-        }
     }
 }

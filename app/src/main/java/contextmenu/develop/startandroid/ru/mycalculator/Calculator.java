@@ -13,12 +13,13 @@ import android.widget.Toast;
 public class Calculator extends AppCompatActivity implements View.OnClickListener{
 
     final int SAVE_REQUEST = 1;
-    TextView sign, first, second;
-    StringBuilder screenFirstNumber,screenSecondNumber;
+    final int LOAD_REQUEST = 2;
+    static TextView sign, first, second;
+    static StringBuilder screenFirstNumber,screenSecondNumber;
     String screenSign;
     int toDo = 0;
-    boolean choose = false, flag = false;
-    double firstNumber = 0, secondNumber = 0;
+    static boolean choose = false, flag = false;
+    static double firstNumber = 0, secondNumber = 0;
     Button zero, one, two, three, four, five, six, seven, eight, nine, plus, minus, multiply, div, result, backspace, point;
 
     @Override
@@ -121,6 +122,11 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 intent.putExtra("todo",0);
                 startActivityForResult(intent,SAVE_REQUEST);
                 return true;
+            case R.id.menu_load:
+                intent = new Intent(this, ViewRecords.class);
+                intent.putExtra("forResult",true);
+                startActivityForResult(intent, LOAD_REQUEST);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -133,6 +139,8 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
             switch (requestCode){
                 case SAVE_REQUEST:
                     Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show();
+                    break;
+                case LOAD_REQUEST:
                     break;
             }
         }

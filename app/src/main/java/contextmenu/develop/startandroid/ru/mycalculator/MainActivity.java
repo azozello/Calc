@@ -113,22 +113,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ID.add(cursor.getLong(cursor.getColumnIndex(TABLE_ID)));
                 }while (cursor.moveToNext());
             }
-        }catch (Exception e){}
+            database.delete(TABLE_NAME,null,null);
+        }catch (Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
         try {
             for (int i=0;i<allRecords.size();i++){
-                if (i<startSize) {
-                    contentValues.put(STRING_TAG, allRecords.get(i).getTAG());
-                    contentValues.put(STRING_NOTE, allRecords.get(i).getNote());
-                    contentValues.put(STRING_RESULT, allRecords.get(i).getResult());
-                    database.update(TABLE_NAME, contentValues,TABLE_ID+" = "+ID.get(i), null);
-                }else {
-                    contentValues.put(STRING_TAG, allRecords.get(i).getTAG());
-                    contentValues.put(STRING_NOTE, allRecords.get(i).getNote());
-                    contentValues.put(STRING_RESULT, allRecords.get(i).getResult());
-                    database.insert(TABLE_NAME, null, contentValues);
-                }
+                contentValues.put(STRING_TAG, allRecords.get(i).getTAG());
+                contentValues.put(STRING_NOTE, allRecords.get(i).getNote());
+                contentValues.put(STRING_RESULT, allRecords.get(i).getResult());
+                database.insert(TABLE_NAME, null, contentValues);
             }
-        }catch (Exception e){}
+        }catch (Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
         save();
     }
 
